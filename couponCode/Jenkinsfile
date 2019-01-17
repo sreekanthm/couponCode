@@ -1,28 +1,11 @@
-pipeline {
-    agent any
-    tools {
-        maven 'Maven 3.5.4'
-        jdk 'jdk8'
-    }
+pipeline { 
+    agent any 
     stages {
-        stage ('Initialize') {
-            steps {
-                sh '''
-                    echo "PATH = ${PATH}"
-                    echo "M2_HOME = ${M2_HOME}"
-                '''
-            }
+        stage('Mvn Package') { 
+            def mvnHome = tool name : 'maven-3', type: 'maven'
+            def mvnCMD = "${mvnHome}/bin/mvn"
+            sh "${mvnCMD} clean package"
         }
-
-        stage ('Build') {
-            steps {
-                sh 'mvn -Dmaven.test.failure.ignore=true install' 
-            }
-            post {
-                success {
-                    junit 'target/surefire-reports/**/*.xml' 
-                }
-            }
-        }
+        
     }
 }
