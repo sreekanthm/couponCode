@@ -1,12 +1,8 @@
 pipeline {
     agent any
     tools {
-<<<<<<< HEAD
         maven 'Maven 3.5.4'
         jdk 'jdk8'
-=======
-         maven 'apache-maven-3.6.0' 
->>>>>>> feature-1
     }
     stages {
         stage ('Initialize') {
